@@ -3,7 +3,6 @@ using System.Reflection;
 using CommandLine;
 using soothsayer.Infrastructure;
 using soothsayer.Infrastructure.IO;
-using soothsayer.Oracle;
 
 namespace soothsayer.Commands
 {
@@ -20,12 +19,12 @@ namespace soothsayer.Commands
         }
 
         public override string CommandText
-        { 
+        {
             get { return "list"; }
         }
 
         public override string Description
-        { 
+        {
             get { return "Display a list of existing versions."; }
         }
 

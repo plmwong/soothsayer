@@ -21,7 +21,7 @@ namespace soothsayer.Commands
         public T Options { get { return new T(); } }
 		protected abstract void ExecuteCore(string[] arguments);
 
-		public void Execute(IEnumerable<string> arguments) 
+		public void Execute(IEnumerable<string> arguments)
 		{
 			ExecuteCore(arguments.ToArray());
 		}
