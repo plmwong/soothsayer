@@ -29,9 +29,9 @@ namespace soothsayer.Tests.Commands
             typeof(ParserSettings).GetProperty("Consumed", BindingFlags.Instance | BindingFlags.NonPublic).SetValue(Parser.Default.Settings, false);
             Parser.Default.Settings.HelpWriter = stringWriter;
 
-            var listCommand = new MigrateCommand(MockSecureConsole.Object, _mockMigrator.Object);
+            var migrateCommand = new MigrateCommand(MockSecureConsole.Object, _mockMigrator.Object);
 
-            listCommand.Execute(new string[] { });
+            migrateCommand.Execute(new string[] { }, new OptionsFile());
 
             Assert.That(stringWriter, Is.Not.Null.Or.Empty);
         }
@@ -39,9 +39,9 @@ namespace soothsayer.Tests.Commands
         [Test]
         public void when_migrate_command_is_executed_then_migration_is_run()
         {
-            var listCommand = new MigrateCommand(MockSecureConsole.Object, _mockMigrator.Object);
+            var migrateCommand = new MigrateCommand(MockSecureConsole.Object, _mockMigrator.Object);
 
-            listCommand.Execute(_requiredMigrateCommandArguments);
+            migrateCommand.Execute(_requiredMigrateCommandArguments, new OptionsFile());
 
             _mockMigrator.Verify(m => m.Migrate(It.IsAny<DatabaseConnectionInfo>(), It.IsAny<MigrationInfo>()));
         }

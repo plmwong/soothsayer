@@ -42,7 +42,7 @@ namespace soothsayer.Tests.Commands
 
             var listCommand = new ListCommand(MockSecureConsole.Object, _mockConnectionFactory.Object, _mockVersionRepositoryFactory.Object);
 
-            listCommand.Execute(new string[] { });
+            listCommand.Execute(new string[] { }, new OptionsFile());
 
             Assert.That(stringWriter, Is.Not.Null.Or.Empty);
         }
@@ -52,7 +52,7 @@ namespace soothsayer.Tests.Commands
         {
             var listCommand = new ListCommand(MockSecureConsole.Object, _mockConnectionFactory.Object, _mockVersionRepositoryFactory.Object);
 
-            listCommand.Execute(_requiredListCommandArguments);
+            listCommand.Execute(_requiredListCommandArguments, new OptionsFile());
 
             _mockConnectionFactory.Verify(m => m.Create(It.IsAny<DatabaseConnectionInfo>()), Times.Once);
         }
@@ -62,7 +62,7 @@ namespace soothsayer.Tests.Commands
         {
             var listCommand = new ListCommand(MockSecureConsole.Object, _mockConnectionFactory.Object, _mockVersionRepositoryFactory.Object);
 
-            listCommand.Execute(_requiredListCommandArguments);
+            listCommand.Execute(_requiredListCommandArguments, new OptionsFile());
 
             _mockVersionRepository.Verify(m => m.GetAllVersions(It.IsAny<string>()), Times.Once);
         }
@@ -79,7 +79,7 @@ namespace soothsayer.Tests.Commands
             {
                 Console.SetOut(stringWriter);
 
-                listCommand.Execute(_requiredListCommandArguments);
+                listCommand.Execute(_requiredListCommandArguments, new OptionsFile());
 
                 Assert.That(stringWriter.ToString().Contains("  1\t\tsome script"));
                 Assert.That(stringWriter.ToString().Contains("  2\t\tsome other script"));

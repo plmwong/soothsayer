@@ -12,6 +12,6 @@ namespace soothsayer.Commands
     {
         string CommandText { get; }
         string Description { get; }
-		void Execute(IEnumerable<string> arguments);
+		void Execute(IEnumerable<string> arguments, OptionsFile overrides);
     }
 }

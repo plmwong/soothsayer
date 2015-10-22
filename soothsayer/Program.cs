@@ -11,7 +11,7 @@ namespace soothsayer
 {
 	public class Program
 	{
-		internal static class ExitCode
+	    internal static class ExitCode
 		{
 			public static readonly int Normal = 0;
 			public static readonly int NoCommand = 1;
@@ -27,6 +27,8 @@ namespace soothsayer
                 var supportedCommands = container.ResolveAll<ICommand>()
                                                  .DistinctBy(c =>  c.CommandText)
                                                  .ToList();
+
+			    var optionsFile = new OptionsFile(OptionsFile.Name);
 
 				if (!args.Any())
 				{
@@ -44,7 +46,7 @@ namespace soothsayer
 					if (command.CommandText.Equals(commandArgument))
 					{
 						foundMatchingCommand = true;
-						command.Execute(remainingArgs);
+                        command.Execute(remainingArgs, optionsFile);
 
 						break;
 					}

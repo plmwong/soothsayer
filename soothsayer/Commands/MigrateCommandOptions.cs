@@ -7,7 +7,7 @@ namespace soothsayer.Commands
     public class MigrateCommandOptions : IDatabaseCommandOptions
     {
         [Option('d', "down", Required = false, DefaultValue = false,
-             HelpText = "Executes the rollback scripts instead of the forward scripts. By default, migrations are run in roll-forward mode.")]
+          HelpText = "Executes the rollback scripts instead of the forward scripts. By default, migrations are run in roll-forward mode.")]
         public bool Down { get; set; }
 
         [Option('c', "connection", Required = true,
@@ -27,11 +27,11 @@ namespace soothsayer.Commands
         public string Username { get; set; }
 
 		[Option('p', "password", Required = false,
-			HelpText = "The password for connecting to the target Oracle instance. If not provided in the commandline then you will be prompted to enter it in.")]
+		  HelpText = "The password for connecting to the target Oracle instance. If not provided in the commandline then you will be prompted to enter it in.")]
 		public string Password { get; set; }
 
         [Option('i', "input", Required = true,
-			HelpText = "The input folder containing both the roll-forward (up) and roll-back (down) sql scripts.")]
+		  HelpText = "The input folder containing both the roll-forward (up) and roll-back (down) sql scripts.")]
         public string InputFolder { get; set; }
 
         [OptionList('e', "environment", Required = false, Separator = ',',
@@ -39,19 +39,19 @@ namespace soothsayer.Commands
         public IList<string> Environment { get; set; }
 
         [Option('v', "version", Required = false,
-			HelpText = "The target database version to migrate up (or down) to. Migration will stop if the next script will bring the database to a higher version than specified here (or lower in the case of roll-backs).")]
+		  HelpText = "The target database version to migrate up (or down) to. Migration will stop if the next script will bring the database to a higher version than specified here (or lower in the case of roll-backs).")]
         public long? Version { get; set; }
 
         [Option('y', "noprompt", Required = false, DefaultValue = false,
-            HelpText = "The target database version to migrate up (or down) to. Migration will stop if the next script will bring the database to a higher version than specified here (or lower in the case of roll-backs).")]
+          HelpText = "The target database version to migrate up (or down) to. Migration will stop if the next script will bring the database to a higher version than specified here (or lower in the case of roll-backs).")]
         public bool NoPrompt { get; set; }
 
         [Option("concise", Required = false,
-            HelpText = "Suppresses verbose information (such as SqlPlus output)")]
+          HelpText = "Suppresses verbose information (such as SqlPlus output)")]
         public bool Concise { get; set; }
 
         [Option("force", Required = false, DefaultValue = false,
-            HelpText = "Tells soothsayer to ignore any errors from executing scripts within SQL*Plus and continue execution of all the scripts.")]
+          HelpText = "Tells soothsayer to ignore any errors from executing scripts within SQL*Plus and continue execution of all the scripts.")]
         public bool Force { get; set; }
 
 		[ParserState]

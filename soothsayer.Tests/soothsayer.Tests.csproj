@@ -61,6 +61,7 @@
     <Compile Include="Commands\DatabaseCommandTests.cs" />
     <Compile Include="Commands\MigrateCommandTests.cs" />
     <Compile Include="Commands\ListCommandTests.cs" />
+    <Compile Include="Commands\OptionsFileTests.cs" />
     <Compile Include="SomeDatabaseTypes.cs" />
     <Compile Include="EnumerableExtensions.cs" />
     <Compile Include="Infrastructure\CollectionExtensionsTests.cs" />
@@ -88,6 +89,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="Commands\changeusername.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Commands\changesomething.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

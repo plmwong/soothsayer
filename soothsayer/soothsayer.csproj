@@ -48,6 +48,10 @@
       <HintPath>..\packages\Moq.4.2.1502.0911\lib\net40\Moq.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Oracle.ManagedDataAccess, Version=4.121.2.0, Culture=neutral, PublicKeyToken=89b483f429c47342, processorArchitecture=MSIL">
       <HintPath>..\packages\Oracle.ManagedDataAccess.12.1.2400\lib\net40\Oracle.ManagedDataAccess.dll</HintPath>
       <Private>True</Private>
@@ -64,13 +68,12 @@
     <Reference Include="System.Data.OracleClient" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Commands\CommandOptionsMerger.cs" />
     <Compile Include="Commands\DatabaseCommand.cs" />
     <Compile Include="Commands\ICommand.cs" />
-    <Compile Include="Commands\ICommandOptionsMerger.cs" />
     <Compile Include="Commands\ListCommand.cs" />
     <Compile Include="Commands\MigrateCommand.cs" />
     <Compile Include="Commands\IDatabaseCommandOptions.cs" />
+    <Compile Include="Commands\OptionsFile.cs" />
     <Compile Include="IDatabaseMetadataProviderFactory.cs" />
     <Compile Include="Infrastructure\Configuration\ConfigSection.cs" />
     <Compile Include="Infrastructure\IO\ColorConsoleAdapter.cs" />

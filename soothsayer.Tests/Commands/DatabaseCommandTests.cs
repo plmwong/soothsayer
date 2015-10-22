@@ -59,7 +59,7 @@ namespace soothsayer.Tests.Commands
             get { return "description"; }
         }
 
-        protected override void ExecuteCore(string[] arguments)
+        protected override void ExecuteCore(string[] arguments, TestCommandOptions options)
         {
         }
 
