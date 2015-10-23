@@ -22,7 +22,7 @@ namespace soothsayer.Tests.Commands
 
             Assert.That(testDatabaseCommandOptions.Username, Is.Null);
 
-            optionsFile.ApplyTo(testDatabaseCommandOptions);
+            var overriddenArguments = optionsFile.ApplyTo(testDatabaseCommandOptions);
 
             Assert.That(testDatabaseCommandOptions.Username, Is.EqualTo("some other username"));
         }

@@ -25,12 +25,13 @@ namespace soothsayer.Commands
         public void Execute(IEnumerable<string> arguments, OptionsFile overrides)
         {
             var options = Options;
+            var argumentsArray = arguments.ToArray();
 
-            if (Parser.Default.ParseArguments(arguments.ToArray(), options))
+            var argumentsWithOverrides = overrides.ApplyTo(argumentsArray);
+
+            if (Parser.Default.ParseArguments(argumentsWithOverrides, options))
             {
-                overrides.ApplyTo(options);
-
-                ExecuteCore(arguments.ToArray(), options);
+                ExecuteCore(argumentsArray, options);
             }
         }
 

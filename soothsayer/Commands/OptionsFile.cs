@@ -10,48 +10,45 @@ namespace soothsayer.Commands
     {
         public const string Name = "options.json";
 
-        private readonly IDictionary<string, object> _options;
+        private readonly IDictionary<string, string> _options;
 
         public OptionsFile(string optionsPath)
         {
             if (File.Exists(optionsPath))
             {
                 var optionsFileContents = File.ReadAllText(optionsPath);
-                _options = JsonConvert.DeserializeObject<Dictionary<string, object>>(optionsFileContents);
+                _options = JsonConvert.DeserializeObject<Dictionary<string, string>>(optionsFileContents);
 
                 Output.Info("Options file contains the following configurations:");
 
                 foreach (var @override in _options)
                 {
-                    Output.Text("  '{0}' : '{1}'".FormatWith(@override.Key, @override.Value));
+                    Output.Text("  '{0}'\t: '{1}'".FormatWith(@override.Key, @override.Value));
                 }
             }
             else
             {
-                _options = new Dictionary<string, object>();
+                _options = new Dictionary<string, string>();
             }
         }
 
         public OptionsFile()
         {
-            _options = new Dictionary<string, object>();
+            _options = new Dictionary<string, string>();
         }
 
-        public void ApplyTo(IOptions options)
+        public string[] ApplyTo(string[] arguments)
         {
-            var optionsType = options.GetType();
-            var optionsProperties = optionsType.GetProperties();
+            var newArguments = new string[arguments.Length + 2 * _options.Count];
+            var index = arguments.Length;
 
-            foreach (var property in optionsProperties)
+            foreach (var option in _options)
             {
-                foreach (var option in _options)
-                {
-                    if (property.Name.ToLowerInvariant() == option.Key.ToLowerInvariant())
-                    {
-                        property.SetValue(options, option.Value);
-                    }
-                }
+                newArguments[index++] = "--{0}".FormatWith(option.Key);
+                newArguments[index++] = option.Value;
             }
+
+            return newArguments;
         }
 
         public bool IsEmpty()
