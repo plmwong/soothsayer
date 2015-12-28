@@ -65,13 +65,12 @@ namespace soothsayer
 
                 VerifyDownScripts(upScripts, downScripts);
 
-                var storedMigrationSteps = new List<IStep>();
+                var storedMigrationSteps = oracleAppliedScriptsRepository.GetAppliedScripts(migrationInfo.TargetSchema).ToList();
+                VerifyAppliedScripts(upScripts, storedMigrationSteps);
 
                 if (migrationInfo.UseStored)
                 {
                     Output.Info("--usestored was specified, fetching set of applied scripts stored in the target database...".FormatWith());
-
-                    storedMigrationSteps = oracleAppliedScriptsRepository.GetAppliedScripts(migrationInfo.TargetSchema).ToList();
 
                     Output.Text("    {0} stored applied scripts found.".FormatWith(storedMigrationSteps.Count));
                     Output.EmptyLine();
@@ -120,6 +119,29 @@ namespace soothsayer
                     Output.Warn(script.Name, 1);
                 }
 
+                Output.EmptyLine();
+            }
+        }
+
+        private void VerifyAppliedScripts(IEnumerable<IScript> upScripts, IList<IStep> storedMigrationSteps)
+        {
+            var latestVersion = storedMigrationSteps.Count > 0 ? storedMigrationSteps.Max(s => s.ForwardScript.Version) : 0;
+
+            var unappliedScripts = upScripts.Where(s => s.Version <= latestVersion)
+                                            .Where(s => storedMigrationSteps.All(m => m.ForwardScript.Version != s.Version))
+                                            .ToList();
+
+            if (unappliedScripts.Any())
+            {
+                Output.Warn("The following 'up' scripts are older than the current target database version, but have not been applied to the target database: ");
+
+                foreach (var script in unappliedScripts)
+                {
+                    Output.Warn(script.Name, 1);
+                }
+
+                Output.EmptyLine();
+                Output.Warn("You may consider running a 'down' migration to an earlier version and re-running an 'up' migration to ensure all scripts have been properly applied.");
                 Output.EmptyLine();
             }
         }
