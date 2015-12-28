@@ -133,15 +133,13 @@ namespace soothsayer
 
             if (unappliedScripts.Any())
             {
-                Output.Warn("The following 'up' scripts are older than the current target database version, but have not been applied to the target database: ");
+                Output.Warn("The following 'up' scripts were found to be older than the current target database version and have apparently not been applied:");
 
                 foreach (var script in unappliedScripts)
                 {
                     Output.Warn(script.Name, 1);
                 }
 
-                Output.EmptyLine();
-                Output.Warn("You may consider running a 'down' migration to an earlier version and re-running an 'up' migration to ensure all scripts have been properly applied.");
                 Output.EmptyLine();
             }
         }

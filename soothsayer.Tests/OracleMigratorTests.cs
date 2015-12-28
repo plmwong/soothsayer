@@ -120,5 +120,18 @@ namespace soothsayer.Tests
             Assert.DoesNotThrow(() => _migrator.Migrate(Some.ConnectionInfo(), migrationInfo));
         }
 
+        [Test]
+        public void when_an_up_script_which_is_older_than_the_current_database_version_has_not_been_applied_to_that_database_then_a_warning_is_displayed()
+        {
+            const string upScriptPath = "20150406_scriptpath";
+            _mockScriptScannerFactory.GetMock(ScriptFolders.Up).Setup(m => m.Scan(It.IsAny<string>(), It.IsAny<string>())).Returns(new[] { new Script(upScriptPath, 1) });
+            _mockScriptScannerFactory.GetMock(ScriptFolders.Down).Setup(m => m.Scan(It.IsAny<string>(), It.IsAny<string>())).Returns(new[] { new Script("RB_" + upScriptPath, 1) });
+            _mockAppliedScriptRespository.Setup(m => m.GetAppliedScripts(It.IsAny<string>())).Returns(new[] { new DatabaseStep(new StoredScript(20150505, Some.String(), Some.String()), null) });
+
+            _migrator.Migrate(Some.ConnectionInfo(), Some.MigrationInfo());
+
+            _mockOutput.Verify(m => m.WriteLine("The following 'up' scripts were found to be older than the current target database version and have apparently not been applied:".Yellow()));
+            _mockOutput.Verify(m => m.WriteLine("    {0}".FormatWith(upScriptPath).Yellow()), Times.Once());
+        }
     }
 }
