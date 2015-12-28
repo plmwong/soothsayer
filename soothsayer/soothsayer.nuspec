@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>soothsayer</id>
+    <version>$version$</version>
+    <title>soothsayer</title>
+    <authors>PayByPhone, Phillip Wong</authors>
+    <owners>PayByPhone, Phillip Wong</owners>
+    <projectUrl>https://github.com/paybyphone/soothsayer</projectUrl>
+    <licenseUrl>http://www.apache.org/licenses/LICENSE-2.0</licenseUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Command-line migration tool for Oracle, using SQL*Plus scripts.</description>
+    <releaseNotes>
+	  v1.20 (Mulberry Malamute)
+	    * Scripts that are run against a target database are now stored in an `appliedscripts` table.
+	    * When performing a `down` migration, the `--usestored` switch may be used to tell soothsayer to use the stored scripts instead of those in the database script `/down` folder.
+	    * soothsayer is now built with the official Oracle Managed Drivers NuGet package.
+	    * Added support for targetting multiple environments in the command line arguments, so that scripts matching any of the supplied environments will be picked up and run against the target database.
+    </releaseNotes>
+    <copyright>Copyright PayByPhone 2015-2016</copyright>
+    <tags>oracle database migrations scripts</tags>
+  </metadata>
+  <files>
+    <file src="bin\Release\say.exe" target="tools\say.exe" />
+    <file src="bin\Release\say.exe.config" target="tools\say.exe.config" />
+    <file src="bin\Release\sqlplus.exe" target="tools\sqlplus.exe" />
+    <file src="bin\Release\LICENSE_sqlplus.txt" target="tools\LICENSE_sqlplus.txt" />
+  </files>
+</package>
