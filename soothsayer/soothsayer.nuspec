@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>soothsayer</id>
-    <version>$version$</version>
+    <version>1.2.0</version>
     <title>soothsayer</title>
     <authors>PayByPhone, Phillip Wong</authors>
     <owners>PayByPhone, Phillip Wong</owners>

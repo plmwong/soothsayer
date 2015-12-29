@@ -171,7 +171,9 @@
   </Target>
   -->
   <ItemGroup>
-    <Content Include="LICENSE_sqlplus.txt" />
+    <Content Include="LICENSE_sqlplus.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="sqlplus.exe">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
